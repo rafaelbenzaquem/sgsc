@@ -1,21 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.rafaelbenz.sgsc.modelo;
 
-import java.util.Objects;
 
-/**
- *
- * @author adm_rafaelneto
- */
-public class Cliente {
-    
+import com.rafaelbenz.sgsc.sgscapi.model.enums.TipoCliente;
+
+import java.io.Serializable;
+import java.util.*;
+
+public class Cliente implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
     private String nome;
     private String email;
+    private String cpfOuCnpj;
+    private Integer tipo;
+
+    private List<Endereco> enderecos = new ArrayList<>();
+
+    private Set<String> telefones = new HashSet<>();
 
     public Cliente() {
     }
@@ -24,6 +26,23 @@ public class Cliente {
         this.id = id;
         this.nome = nome;
         this.email = email;
+    }
+
+    public Cliente(String nome, String email, String cpfOuCnpj, Integer tipo) {
+        this.nome = nome;
+        this.email = email;
+        this.cpfOuCnpj = cpfOuCnpj;
+        this.tipo = tipo;
+    }
+
+    
+    
+    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.cpfOuCnpj = cpfOuCnpj;
+        this.tipo = (tipo == null) ? null : tipo.getCodigo();
     }
 
     public Integer getId() {
@@ -50,34 +69,68 @@ public class Cliente {
         this.email = email;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + Objects.hashCode(this.id);
-        return hash;
+    public String getCpfOuCnpj() {
+        return cpfOuCnpj;
+    }
+
+    public void setCpfOuCnpj(String cpfOuCnpj) {
+        this.cpfOuCnpj = cpfOuCnpj;
+    }
+
+    public TipoCliente getTipo() {
+        return TipoCliente.toEnum(tipo);
+    }
+
+    public void setTipo(TipoCliente tipo) {
+        this.tipo = tipo.getCodigo();
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+
+    public void addEndereco(Endereco endereco) {
+        this.enderecos.add(endereco);
+    }
+
+    public Set<String> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(Set<String> telefones) {
+        this.telefones = telefones;
+    }
+
+    public void addTelefone(String telefone) {
+        this.telefones.add(telefone);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Cliente other = (Cliente) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente)) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(getId(), cliente.getId());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId());
     }
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nome=" + nome + ", email=" + email + '}';
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", cpfOuCnpj='" + cpfOuCnpj + '\'' +
+                ", tipo=" + tipo +
+                '}';
     }
-    
 }
