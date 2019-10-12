@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rafaelbenz.sgsc.ui.desktop;
+package com.rafaelbenz.sgsc.ui.desktop.cliente;
 
 import com.google.gson.Gson;
+import com.rafaelbenz.sgsc.controller.ClienteRafsonController;
+import com.rafaelbenz.sgsc.controller.IController;
 import com.rafaelbenz.sgsc.modelo.Cliente;
 import com.rafaelbenz.sgsc.modelo.Endereco;
+import com.rafaelbenz.sgsc.modelo.enums.TipoCliente;
 import com.rafson.Rafson;
 import com.rafson.Response;
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author adm_rafaelneto
  */
-public class NovoClienteFrame extends javax.swing.JFrame {
+public class AtualizarClienteFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form NovoClienteFrame
@@ -33,9 +36,15 @@ public class NovoClienteFrame extends javax.swing.JFrame {
     Set<String> telefones = new HashSet();
     List<Endereco> enderecos = new ArrayList<>();
 
+    IController<Cliente> clienteController = new ClienteRafsonController();
+
     EnderecoFrame enderecoFrame;
 
-    public NovoClienteFrame() {
+    private MainFrameListener clienteFrameListener;
+
+    private Cliente cliente;
+
+    public AtualizarClienteFrame(Cliente cliente) {
         initComponents();
         telefoneTableModel.addColumn("Telefones cadastrados");
         enderecoTableModel.addColumn("Logradouro");
@@ -45,6 +54,32 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         enderecoTableModel.addColumn("Cep");
         enderecoTableModel.addColumn("Cidade");
 
+        this.cliente = cliente;
+        preencherFormularioCliente(cliente);
+    }
+
+    private void preencherFormularioCliente(Cliente cliente) {
+        jTextFieldNome.setText(cliente.getNome());
+        jTextFieldEmail.setText(cliente.getEmail());
+        jTextFieldDocumento.setText(cliente.getCpfOuCnpj());
+        jComboBoxTipos.setSelectedIndex(cliente.getTipo().getCodigo() - 1);
+
+        for (String telefone : cliente.getTelefones()) {
+            addTelefone(telefone);
+        }
+
+        for (Endereco endereco : cliente.getEnderecos()) {
+            addEndereco(endereco);
+        }
+
+    }
+
+    public MainFrameListener getClienteFrameListener() {
+        return clienteFrameListener;
+    }
+
+    public void setClienteFrameListener(MainFrameListener clienteFrameListener) {
+        this.clienteFrameListener = clienteFrameListener;
     }
 
     /**
@@ -251,7 +286,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.setText("Atualizar");
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalvarActionPerformed(evt);
@@ -294,26 +329,29 @@ public class NovoClienteFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-
-        Cliente cliente = new Cliente(jTextFieldNome.getText(), jTextFieldEmail.getText(), jTextFieldDocumento.getText(), jComboBoxTipos.getSelectedIndex() + 1);
+        cliente.setNome(jTextFieldNome.getText());
+        cliente.setEmail(jTextFieldEmail.getText());
+        cliente.setCpfOuCnpj(jTextFieldDocumento.getText());
+        cliente.setTipo(jComboBoxTipos.getSelectedIndex() == 0 ? TipoCliente.PESSOA_FISICA : TipoCliente.PESSOA_JURIDICA);
         cliente.setTelefones(telefones);
         cliente.setEnderecos(enderecos);
-        String body = new Gson().toJson(cliente);
 
-        Response response = new Rafson().post("http://localhost:8080/clientes/", body);
-
-
-        System.out.println(response.getHeader());
+        clienteController.atualizar(cliente);
+        clienteFrameListener.atualizar();
+        this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonAddTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTelefoneActionPerformed
-
         String telefone = jTextFieldTelefone.getText();
+        addTelefone(telefone);
+    }//GEN-LAST:event_jButtonAddTelefoneActionPerformed
+
+    private void addTelefone(String telefone) {
         telefones.add(telefone);
         Object[] rowData = new Object[1];
         rowData[0] = telefone;
         telefoneTableModel.addRow(rowData);
-    }//GEN-LAST:event_jButtonAddTelefoneActionPerformed
+    }
 
     private void jButtonRemoveTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveTelefoneActionPerformed
         int row = jTableTelefones.getSelectedRow();
@@ -327,7 +365,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         enderecoFrame = new EnderecoFrame();
 
         enderecoFrame.setListener(() -> {
-            addEnderecoComplete();
+            atualziarTabelaEndereco();
         });
 
         enderecoFrame.setLocationRelativeTo(null);
@@ -337,9 +375,13 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonAddEnderecoActionPerformed
 
-    private void addEnderecoComplete() {
-
+    private void atualziarTabelaEndereco() {
         Endereco endereco = enderecoFrame.getEndereco();
+        addEndereco(endereco);
+        enderecoFrame.dispose();
+    }
+
+    private void addEndereco(Endereco endereco) {
         enderecos.add(endereco);
         Object[] rowData = new Object[6];
         rowData[0] = endereco.getLogradouro();
@@ -349,9 +391,6 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         rowData[4] = endereco.getCep();
         rowData[5] = endereco.getCidade();
         enderecoTableModel.addRow(rowData);
-
-        enderecoFrame.dispose();
-
     }
 
     /**
@@ -366,20 +405,21 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovoClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovoClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovoClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovoClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovoClienteFrame().setVisible(true);
+                new AtualizarClienteFrame(new Cliente()).setVisible(true);
             }
         });
     }

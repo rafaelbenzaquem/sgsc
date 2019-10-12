@@ -1,7 +1,7 @@
-package com.rafaelbenz.sgsc.sgscapi.model.enums;
+package com.rafaelbenz.sgsc.modelo.enums;
 
 public enum TipoCliente {
-    PESSOA_FISICA(1,"Pessoa física"),
+    PESSOA_FISICA(1,"PESSOA_FISICA"),
     PESSOA_JURIDICA(2,"Pessoa jurídica");
 
     private int codigo;
@@ -29,5 +29,16 @@ public enum TipoCliente {
                 return tc;
 
         throw new IllegalArgumentException("Código inválido: "+codigo);
+    }
+    
+    public static TipoCliente toEnum(String descricao){
+        if(descricao==null)
+            return null;
+
+        for(TipoCliente tc : TipoCliente.values())
+            if(descricao.equals(tc.descricao))
+                return tc;
+
+        throw new IllegalArgumentException("Descrição inválida: "+descricao);
     }
 }

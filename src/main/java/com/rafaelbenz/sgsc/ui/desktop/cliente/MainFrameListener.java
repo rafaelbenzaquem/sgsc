@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rafaelbenz.sgsc.ui.desktop;
+package com.rafaelbenz.sgsc.ui.desktop.cliente;
 
 /**
  *
- * @author adm_rafaelneto
+ * @author Rafael Benzaquem Neto
  */
-public interface EnderecoFrameListener {
+public interface MainFrameListener {
     
-    
-    public void addEndereco();
+    public void atualizar();
     
 }

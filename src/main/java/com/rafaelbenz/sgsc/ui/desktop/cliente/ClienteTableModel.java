@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rafaelbenz.sgsc.ui.desktop;
+package com.rafaelbenz.sgsc.ui.desktop.cliente;
 
 import com.rafaelbenz.sgsc.modelo.Cliente;
 import java.util.ArrayList;

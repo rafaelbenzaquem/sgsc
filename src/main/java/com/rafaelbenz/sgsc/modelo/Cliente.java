@@ -1,7 +1,7 @@
 package com.rafaelbenz.sgsc.modelo;
 
 
-import com.rafaelbenz.sgsc.sgscapi.model.enums.TipoCliente;
+import com.rafaelbenz.sgsc.modelo.enums.TipoCliente;
 
 import java.io.Serializable;
 import java.util.*;
@@ -28,11 +28,11 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
-    public Cliente(String nome, String email, String cpfOuCnpj, Integer tipo) {
+    public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo;
+        this.tipo = (tipo == null) ? null : tipo.getCodigo();
     }
 
     
