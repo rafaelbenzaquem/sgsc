@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author adm_rafaelneto
  */
-public class AtualizarClienteFrame extends javax.swing.JFrame {
+public class VisualizarClienteFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form NovoClienteFrame
@@ -41,7 +41,7 @@ public class AtualizarClienteFrame extends javax.swing.JFrame {
 
     private Cliente cliente;
 
-    public AtualizarClienteFrame(Cliente cliente) {
+    public VisualizarClienteFrame(Cliente cliente) {
         initComponents();
         telefoneTableModel.addColumn("Telefones cadastrados");
         enderecoTableModel.addColumn("Logradouro");
@@ -146,11 +146,6 @@ public class AtualizarClienteFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableEnderecos);
 
         jButton1.setText("-");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -377,20 +372,6 @@ public class AtualizarClienteFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonAddEnderecoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Endereco endereco = new Endereco();
-        int row = jTableEnderecos.getSelectedRow();
-        endereco.setLogradouro((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setNumero((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setComplemento((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setBairro((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setCep((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setCidade((String) enderecoTableModel.getValueAt(row, 0));
-        enderecos.remove(endereco);
-        enderecoTableModel.removeRow(row);
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void atualziarTabelaEndereco() {
         Endereco endereco = enderecoFrame.getEndereco();
         addEndereco(endereco);
@@ -421,21 +402,23 @@ public class AtualizarClienteFrame extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AtualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AtualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AtualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AtualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AtualizarClienteFrame(new Cliente()).setVisible(true);
+                new VisualizarClienteFrame(new Cliente()).setVisible(true);
             }
         });
     }

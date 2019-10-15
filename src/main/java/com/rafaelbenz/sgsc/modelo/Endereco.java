@@ -134,4 +134,12 @@ public class Endereco implements Serializable{
                 ", cidade=" + cidade +
                 '}';
     }
+
+    public void getNumero(Object valueAt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getComplemento(Object valueAt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

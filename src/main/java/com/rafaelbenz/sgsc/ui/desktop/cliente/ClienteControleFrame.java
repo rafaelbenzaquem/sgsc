@@ -8,8 +8,6 @@ package com.rafaelbenz.sgsc.ui.desktop.cliente;
 import com.rafaelbenz.sgsc.controller.ClienteRafsonController;
 import com.rafaelbenz.sgsc.controller.IController;
 import com.rafaelbenz.sgsc.modelo.Cliente;
-import com.rafson.Rafson;
-import com.rafson.Response;
 import java.io.Serializable;
 import java.util.List;
 import javax.swing.JDialog;
@@ -19,11 +17,12 @@ import javax.swing.UIManager;
  *
  * @author adm_rafaelneto
  */
-public class ClienteControleFrame extends javax.swing.JFrame implements MainFrameListener {
+public class ClienteControleFrame extends javax.swing.JInternalFrame implements MainFrameListener {
 
     ClienteTableModel clienteTableModel = new ClienteTableModel();
     NovoClienteFrame novoClienteFrame;
     AtualizarClienteFrame atualizarClienteFrame;
+    VisualizarClienteFrame visualizarClienteFrame;
 
     IController<Cliente> clienteController = new ClienteRafsonController();
 
@@ -161,15 +160,12 @@ public class ClienteControleFrame extends javax.swing.JFrame implements MainFram
         int indexRow = jTable1.getSelectedRow();
 
         Object[] objects = clienteTableModel.getRow(indexRow);
-        Response response = new Rafson().get("http://localhost:8080/clientes/" + objects[0]);
-        String json = response.getBody();
-        System.out.println(json);
-
+        Cliente cliente = clienteController.ler((Serializable) objects[0]);
+        visualizarClienteFrame = new VisualizarClienteFrame(cliente);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-
         novoClienteFrame = new NovoClienteFrame();
         novoClienteFrame.setClienteFrameListener(this);
         novoClienteFrame.setLocationRelativeTo(this);

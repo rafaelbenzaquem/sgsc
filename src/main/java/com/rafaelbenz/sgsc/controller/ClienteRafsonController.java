@@ -31,11 +31,8 @@ public class ClienteRafsonController implements IController<Cliente> {
     @Override
     public Boolean salvar(Cliente cliente) {
         String body = new Gson().toJson(cliente);
-
         Response response = rafson.post(uriClientes, body);
-
         String code = response.getHeader().get(null).get(0);
-
         return code.contains("201");
     }
 
@@ -56,8 +53,6 @@ public class ClienteRafsonController implements IController<Cliente> {
 
         List<Cliente> clientes = new ArrayList<>();
         Response response = rafson.get(uriClientes);
-
-        System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         if (code.contains("200")) {
             String resposta = response.getBody();
@@ -71,10 +66,8 @@ public class ClienteRafsonController implements IController<Cliente> {
     @Override
     public Boolean atualizar(Cliente cliente) {
         String body = new Gson().toJson(cliente);
-
         Response response = rafson.put(uriClientes + cliente.getId(), body);
         String code = response.getHeader().get(null).get(0);
-
         return code.contains("204");
     }
 
@@ -83,8 +76,7 @@ public class ClienteRafsonController implements IController<Cliente> {
         Response response = rafson.delete(uriClientes + id);
         System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
-
-        return true;
+        return code.contains("200");
     }
 
 }
