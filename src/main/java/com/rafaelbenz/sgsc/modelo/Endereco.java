@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Objects;
-
+/**
+ * 
+ * @author Rafael Benzaquem Neto
+ */
 public class Endereco implements Serializable{
     private static final long serialVersionUID = 1L;
 

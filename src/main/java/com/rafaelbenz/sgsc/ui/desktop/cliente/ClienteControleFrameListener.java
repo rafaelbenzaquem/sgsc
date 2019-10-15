@@ -9,8 +9,8 @@ package com.rafaelbenz.sgsc.ui.desktop.cliente;
  *
  * @author Rafael Benzaquem Neto
  */
-public interface MainFrameListener {
+public interface ClienteControleFrameListener {
     
-    public void atualizar();
+    public void atualizarClienteControleFrame();
     
 }

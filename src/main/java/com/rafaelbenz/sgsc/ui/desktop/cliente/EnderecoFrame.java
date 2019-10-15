@@ -9,7 +9,7 @@ import com.rafaelbenz.sgsc.modelo.Endereco;
 
 /**
  *
- * @author adm_rafaelneto
+ * @author Rafael Benzaquem Neto
  */
 public class EnderecoFrame extends javax.swing.JFrame {
 

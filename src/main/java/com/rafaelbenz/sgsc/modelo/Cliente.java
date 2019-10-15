@@ -5,7 +5,10 @@ import com.rafaelbenz.sgsc.modelo.enums.TipoCliente;
 
 import java.io.Serializable;
 import java.util.*;
-
+/**
+ * 
+ * @author Rafael Benzaquem Neto
+ */
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
 

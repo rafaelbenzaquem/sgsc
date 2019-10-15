@@ -20,9 +20,9 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author adm_rafaelneto
+ * @author Rafael Benzaquem Neto
  */
-public class AtualizarClienteFrame extends javax.swing.JFrame {
+public class AtualizarClienteFrame extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NovoClienteFrame
@@ -37,13 +37,14 @@ public class AtualizarClienteFrame extends javax.swing.JFrame {
 
     EnderecoFrame enderecoFrame;
 
-    private MainFrameListener clienteFrameListener;
+    private ClienteControleFrameListener clienteFrameListener;
 
     private Cliente cliente;
 
     public AtualizarClienteFrame(Cliente cliente) {
         initComponents();
         telefoneTableModel.addColumn("Telefones cadastrados");
+        enderecoTableModel.addColumn("id");
         enderecoTableModel.addColumn("Logradouro");
         enderecoTableModel.addColumn("N°");
         enderecoTableModel.addColumn("Comple.");
@@ -71,11 +72,11 @@ public class AtualizarClienteFrame extends javax.swing.JFrame {
 
     }
 
-    public MainFrameListener getClienteFrameListener() {
+    public ClienteControleFrameListener getClienteFrameListener() {
         return clienteFrameListener;
     }
 
-    public void setClienteFrameListener(MainFrameListener clienteFrameListener) {
+    public void setClienteFrameListener(ClienteControleFrameListener clienteFrameListener) {
         this.clienteFrameListener = clienteFrameListener;
     }
 
@@ -339,7 +340,7 @@ public class AtualizarClienteFrame extends javax.swing.JFrame {
         cliente.setEnderecos(enderecos);
 
         clienteController.atualizar(cliente);
-        clienteFrameListener.atualizar();
+        clienteFrameListener.atualizarClienteControleFrame();
         this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -380,12 +381,13 @@ public class AtualizarClienteFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Endereco endereco = new Endereco();
         int row = jTableEnderecos.getSelectedRow();
-        endereco.setLogradouro((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setNumero((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setComplemento((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setBairro((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setCep((String) enderecoTableModel.getValueAt(row, 0));
-        endereco.setCidade((String) enderecoTableModel.getValueAt(row, 0));
+        endereco.setId((Integer) enderecoTableModel.getValueAt(row, 0));
+        endereco.setLogradouro((String) enderecoTableModel.getValueAt(row, 1));
+        endereco.setNumero((String) enderecoTableModel.getValueAt(row, 2));
+        endereco.setComplemento((String) enderecoTableModel.getValueAt(row, 3));
+        endereco.setBairro((String) enderecoTableModel.getValueAt(row, 4));
+        endereco.setCep((String) enderecoTableModel.getValueAt(row, 5));
+        endereco.setCidade((String) enderecoTableModel.getValueAt(row, 6));
         enderecos.remove(endereco);
         enderecoTableModel.removeRow(row);
 
@@ -399,13 +401,14 @@ public class AtualizarClienteFrame extends javax.swing.JFrame {
 
     private void addEndereco(Endereco endereco) {
         enderecos.add(endereco);
-        Object[] rowData = new Object[6];
-        rowData[0] = endereco.getLogradouro();
-        rowData[1] = endereco.getNumero();
-        rowData[2] = endereco.getComplemento();
-        rowData[3] = endereco.getBairro();
-        rowData[4] = endereco.getCep();
-        rowData[5] = endereco.getCidade();
+        Object[] rowData = new Object[7];
+        rowData[0] = endereco.getId();
+        rowData[1] = endereco.getLogradouro();
+        rowData[2] = endereco.getNumero();
+        rowData[3] = endereco.getComplemento();
+        rowData[4] = endereco.getBairro();
+        rowData[5] = endereco.getCep();
+        rowData[6] = endereco.getCidade();
         enderecoTableModel.addRow(rowData);
     }
 

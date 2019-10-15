@@ -1,7 +1,10 @@
 package com.rafaelbenz.sgsc.modelo.enums;
-
+/**
+ * 
+ * @author Rafael Benzaquem Neto
+ */
 public enum TipoCliente {
-    PESSOA_FISICA(0,"PESSOA_FISICA"),
+    PESSOA_FISICA(0,"Pessoa física"),
     PESSOA_JURIDICA(1,"Pessoa jurídica");
 
     private int codigo;

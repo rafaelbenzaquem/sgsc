@@ -10,7 +10,7 @@ import javax.swing.JDialog;
 
 /**
  *
- * @author rbnbs
+ * @author Rafael Benzaquem Neto
  */
 public class MainJFrame extends javax.swing.JFrame {
 

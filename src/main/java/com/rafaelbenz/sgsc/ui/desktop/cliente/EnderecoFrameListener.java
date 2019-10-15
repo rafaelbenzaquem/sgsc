@@ -7,7 +7,7 @@ package com.rafaelbenz.sgsc.ui.desktop.cliente;
 
 /**
  *
- * @author adm_rafaelneto
+ * @author Rafael Benzaquem Neto
  */
 public interface EnderecoFrameListener {
     

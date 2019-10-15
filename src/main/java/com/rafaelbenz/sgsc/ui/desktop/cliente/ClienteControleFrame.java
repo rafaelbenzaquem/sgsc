@@ -15,9 +15,9 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author adm_rafaelneto
+ * @author Rafeal Benzaquem Neto
  */
-public class ClienteControleFrame extends javax.swing.JInternalFrame implements MainFrameListener {
+public class ClienteControleFrame extends javax.swing.JInternalFrame implements ClienteControleFrameListener {
 
     ClienteTableModel clienteTableModel = new ClienteTableModel();
     NovoClienteFrame novoClienteFrame;
@@ -53,10 +53,11 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
         jButtonAtualizar = new javax.swing.JButton();
         jButtonDeletar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(236, 251, 251));
 
+        jPanel2.setBackground(new java.awt.Color(236, 251, 251));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Controle Cliente"));
 
         jTable1.setModel(clienteTableModel);
@@ -101,13 +102,13 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
-                        .addComponent(jButtonVisualizar)
+                        .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
-                        .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
-                        .addComponent(jButtonDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10))
         );
         jPanel2Layout.setVerticalGroup(
@@ -117,10 +118,10 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -156,21 +157,28 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
-
         int indexRow = jTable1.getSelectedRow();
-
         Object[] objects = clienteTableModel.getRow(indexRow);
         Cliente cliente = clienteController.ler((Serializable) objects[0]);
         visualizarClienteFrame = new VisualizarClienteFrame(cliente);
-        // TODO add your handling code here:
+        visualizarClienteFrame.setClienteFrameListener(this);
+        visualizarClienteFrame.setVisible(true);
+        visualizarClienteFrame.setClosable(true);
+        visualizarClienteFrame.setResizable(false);
+        visualizarClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        this.getDesktopPane().add(visualizarClienteFrame, 0);
+        this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
         novoClienteFrame = new NovoClienteFrame();
         novoClienteFrame.setClienteFrameListener(this);
-        novoClienteFrame.setLocationRelativeTo(this);
         novoClienteFrame.setVisible(true);
+        novoClienteFrame.setClosable(true);
+        novoClienteFrame.setResizable(false);
         novoClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        this.getDesktopPane().add(novoClienteFrame, 0);
+        this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed
@@ -186,9 +194,12 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
         Cliente cliente = clienteController.ler((Serializable) objects[0]);
         atualizarClienteFrame = new AtualizarClienteFrame(cliente);
         atualizarClienteFrame.setClienteFrameListener(this);
-        atualizarClienteFrame.setLocationRelativeTo(this);
         atualizarClienteFrame.setVisible(true);
+        atualizarClienteFrame.setClosable(true);
+        atualizarClienteFrame.setResizable(false);
         atualizarClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        this.getDesktopPane().add(atualizarClienteFrame, 0);
+        this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
     /**
@@ -236,7 +247,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void atualizar() {
+    public void atualizarClienteControleFrame() {
         atualizarTabelaCliente();
     }
 

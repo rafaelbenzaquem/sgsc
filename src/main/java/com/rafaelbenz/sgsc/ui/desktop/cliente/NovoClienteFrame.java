@@ -5,14 +5,11 @@
  */
 package com.rafaelbenz.sgsc.ui.desktop.cliente;
 
-import com.google.gson.Gson;
 import com.rafaelbenz.sgsc.controller.ClienteRafsonController;
 import com.rafaelbenz.sgsc.controller.IController;
 import com.rafaelbenz.sgsc.modelo.Cliente;
 import com.rafaelbenz.sgsc.modelo.Endereco;
 import com.rafaelbenz.sgsc.modelo.enums.TipoCliente;
-import com.rafson.Rafson;
-import com.rafson.Response;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,9 +20,9 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author adm_rafaelneto
+ * @author Rafael Benzaquem Neto
  */
-public class NovoClienteFrame extends javax.swing.JFrame {
+public class NovoClienteFrame extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NovoClienteFrame
@@ -40,7 +37,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
     EnderecoFrame enderecoFrame;
 
-    private MainFrameListener clienteFrameListener;
+    private ClienteControleFrameListener clienteFrameListener;
 
     public NovoClienteFrame() {
         initComponents();
@@ -54,11 +51,11 @@ public class NovoClienteFrame extends javax.swing.JFrame {
 
     }
 
-    public MainFrameListener getClienteFrameListener() {
+    public ClienteControleFrameListener getClienteFrameListener() {
         return clienteFrameListener;
     }
 
-    public void setClienteFrameListener(MainFrameListener clienteFrameListener) {
+    public void setClienteFrameListener(ClienteControleFrameListener clienteFrameListener) {
         this.clienteFrameListener = clienteFrameListener;
     }
 
@@ -315,7 +312,7 @@ public class NovoClienteFrame extends javax.swing.JFrame {
         cliente.setEnderecos(enderecos);
 
         clienteController.salvar(cliente);
-        clienteFrameListener.atualizar();
+        clienteFrameListener.atualizarClienteControleFrame();
         this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
