@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.github.rafaelbenzaquem</groupId>
             <artifactId>rafson</artifactId>
-            <version>0.02</version>
+            <version>0.03</version>
         </dependency>
     </dependencies>
 </project>

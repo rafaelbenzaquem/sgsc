@@ -31,6 +31,7 @@ public class ClienteRafsonController implements IController<Cliente> {
     public Boolean salvar(Cliente cliente) {
         String body = new Gson().toJson(cliente);
         Response response = rafson.post(uriClientes, body);
+        System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         return code.contains("201");
     }
@@ -39,6 +40,7 @@ public class ClienteRafsonController implements IController<Cliente> {
     public Cliente ler(Serializable id) {
         Cliente cliente = new Cliente();
         Response response = rafson.get(uriClientes + id);
+        System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         if (code.contains("200")) {
             String resposta = response.getBody();
@@ -49,9 +51,9 @@ public class ClienteRafsonController implements IController<Cliente> {
 
     @Override
     public List<Cliente> listar() {
-
         List<Cliente> clientes = new ArrayList<>();
         Response response = rafson.get(uriClientes);
+        System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         if (code.contains("200")) {
             String resposta = response.getBody();
@@ -66,6 +68,7 @@ public class ClienteRafsonController implements IController<Cliente> {
     public Boolean atualizar(Cliente cliente) {
         String body = new Gson().toJson(cliente);
         Response response = rafson.put(uriClientes + cliente.getId(), body);
+        System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         return code.contains("204");
     }
