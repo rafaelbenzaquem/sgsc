@@ -34,6 +34,12 @@ public class MainJFrame extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         editMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -53,6 +59,27 @@ public class MainJFrame extends javax.swing.JFrame {
         editMenu.add(jMenuItem1);
 
         menuBar.add(editMenu);
+
+        jMenu1.setText("Serviços");
+
+        jMenuItem2.setText("Gerenciar");
+        jMenu1.add(jMenuItem2);
+
+        menuBar.add(jMenu1);
+
+        jMenu2.setText("Contratos");
+
+        jMenuItem3.setText("Gerenciar");
+        jMenu2.add(jMenuItem3);
+
+        menuBar.add(jMenu2);
+
+        jMenu3.setText("Usuários");
+
+        jMenuItem4.setText("Gerenciar");
+        jMenu3.add(jMenuItem4);
+
+        menuBar.add(jMenu3);
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Help");
@@ -141,7 +168,13 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 

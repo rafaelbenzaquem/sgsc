@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rafaelbenz.sgsc.controller;
+package com.rafaelbenz.sgsc.controller.rest;
 
+import com.rafaelbenz.sgsc.controller.IController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rafaelbenz.sgsc.modelo.Cliente;
@@ -18,12 +19,12 @@ import java.util.List;
  *
  * @author Rafael Benzaquem Neto
  */
-public class ClienteRafsonController implements IController<Cliente> {
+public class ClienteController implements IController<Cliente> {
 
     private final Rafson rafson;
     private String uriClientes = "http://localhost:8080/clientes/";
 
-    public ClienteRafsonController() {
+    public ClienteController() {
         this.rafson = new Rafson();
     }
 

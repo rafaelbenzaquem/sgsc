@@ -5,6 +5,8 @@
  */
 package com.rafaelbenz.sgsc.ui.desktop;
 
+import com.rafaelbenz.sgsc.controller.rest.UsuarioController;
+import com.rafaelbenz.sgsc.modelo.Usuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +18,9 @@ public class LoginFrame extends javax.swing.JFrame {
     /**
      * Creates new form LoginFrame
      */
+    private Usuario usuarioLogado;
+    private UsuarioController usuarioController = new UsuarioController();
+
     public LoginFrame() {
         initComponents();
     }
@@ -139,14 +144,17 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void jButtonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrarActionPerformed
         String login = jTextFieldLogin.getText();
-       String senha = new StringBuilder().append(jPasswordField.getPassword()).toString();
-        if (login.equals("admin") && senha.equals("admin")) {
+        String senha = new StringBuilder().append(jPasswordField.getPassword()).toString();
+
+        usuarioLogado = usuarioController.login(login, senha);
+
+        if (usuarioLogado != null) {
             MainJFrame mainJFrame = new MainJFrame();
             mainJFrame.setLocationRelativeTo(null);
             mainJFrame.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Erro!", "Login ou senha estão incorretos!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Login ou senha estão incorretos!", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonEntrarActionPerformed
 

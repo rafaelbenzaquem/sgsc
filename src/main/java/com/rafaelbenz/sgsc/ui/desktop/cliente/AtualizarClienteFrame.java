@@ -5,7 +5,7 @@
  */
 package com.rafaelbenz.sgsc.ui.desktop.cliente;
 
-import com.rafaelbenz.sgsc.controller.ClienteRafsonController;
+import com.rafaelbenz.sgsc.controller.rest.ClienteController;
 import com.rafaelbenz.sgsc.controller.IController;
 import com.rafaelbenz.sgsc.modelo.Cliente;
 import com.rafaelbenz.sgsc.modelo.Endereco;
@@ -33,7 +33,7 @@ public class AtualizarClienteFrame extends javax.swing.JInternalFrame {
     Set<String> telefones = new HashSet();
     List<Endereco> enderecos = new ArrayList<>();
 
-    IController<Cliente> clienteController = new ClienteRafsonController();
+    IController<Cliente> clienteController = new ClienteController();
 
     EnderecoFrame enderecoFrame;
 

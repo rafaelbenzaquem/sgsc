@@ -5,7 +5,7 @@
  */
 package com.rafaelbenz.sgsc.ui.desktop.cliente;
 
-import com.rafaelbenz.sgsc.controller.ClienteRafsonController;
+import com.rafaelbenz.sgsc.controller.rest.ClienteController;
 import com.rafaelbenz.sgsc.controller.IController;
 import com.rafaelbenz.sgsc.modelo.Cliente;
 import java.awt.Dimension;
@@ -25,7 +25,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     AtualizarClienteFrame atualizarClienteFrame;
     VisualizarClienteFrame visualizarClienteFrame;
 
-    IController<Cliente> clienteController = new ClienteRafsonController();
+    IController<Cliente> clienteController = new ClienteController();
 
     /**
      * Creates new form ClienteFrame
