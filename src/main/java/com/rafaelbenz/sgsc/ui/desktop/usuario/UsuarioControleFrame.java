@@ -3,32 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rafaelbenz.sgsc.ui.desktop.cliente;
+package com.rafaelbenz.sgsc.ui.desktop.usuario;
 
-import com.rafaelbenz.sgsc.controller.rest.ClienteController;
-import com.rafaelbenz.sgsc.controller.IController;
-import com.rafaelbenz.sgsc.modelo.Cliente;
-import java.io.Serializable;
+import com.rafaelbenz.sgsc.controller.rest.UsuarioController;
+import com.rafaelbenz.sgsc.modelo.Usuario;
 import java.util.List;
-import javax.swing.JDialog;
 
 /**
  *
- * @author Rafeal Benzaquem Neto
+ * @author Rafael Benzaquem Neto
  */
-public class ClienteControleFrame extends javax.swing.JInternalFrame implements ClienteControleFrameListener {
+public class UsuarioControleFrame extends javax.swing.JInternalFrame {
 
-    ClienteTableModel clienteTableModel = new ClienteTableModel();
-    NovoClienteFrame novoClienteFrame;
-    AtualizarClienteFrame atualizarClienteFrame;
-    VisualizarClienteFrame visualizarClienteFrame;
+    private UsuarioTableModel usuarioTableModel = new UsuarioTableModel();
+    private UsuarioController usuarioController= new UsuarioController();
 
-    IController<Cliente> clienteController = new ClienteController();
-
-    /**
-     * Creates new form ClienteFrame
-     */
-    public ClienteControleFrame() {
+    public UsuarioControleFrame() {
         initComponents();
         atualizarTabelaCliente();
     }
@@ -45,21 +35,21 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableUsuarios = new javax.swing.JTable();
         jButtonAdicionar = new javax.swing.JButton();
         jButtonVisualizar = new javax.swing.JButton();
         jButtonAtualizar = new javax.swing.JButton();
         jButtonDeletar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(546, 444));
 
         jPanel1.setBackground(new java.awt.Color(236, 251, 251));
 
         jPanel2.setBackground(new java.awt.Color(236, 251, 251));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Controle Cliente"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Controle Usuário"));
 
-        jTable1.setModel(clienteTableModel);
-        jScrollPane1.setViewportView(jTable1);
+        jTableUsuarios.setModel(usuarioTableModel);
+        jScrollPane1.setViewportView(jTableUsuarios);
 
         jButtonAdicionar.setText("Adicionar");
         jButtonAdicionar.setToolTipText("");
@@ -137,7 +127,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,84 +144,22 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
-        int indexRow = jTable1.getSelectedRow();
-        Object[] objects = clienteTableModel.getRow(indexRow);
-        Cliente cliente = clienteController.ler((Serializable) objects[0]);
-        visualizarClienteFrame = new VisualizarClienteFrame(cliente);
-        visualizarClienteFrame.setClienteFrameListener(this);
-        visualizarClienteFrame.setVisible(true);
-        visualizarClienteFrame.setClosable(true);
-        visualizarClienteFrame.setResizable(false);
-        visualizarClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        this.getDesktopPane().add(visualizarClienteFrame, 0);
-        this.getDesktopPane().repaint();
-    }//GEN-LAST:event_jButtonVisualizarActionPerformed
-
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        novoClienteFrame = new NovoClienteFrame();
-        novoClienteFrame.setClienteFrameListener(this);
-        novoClienteFrame.setVisible(true);
-        novoClienteFrame.setClosable(true);
-        novoClienteFrame.setResizable(false);
-        novoClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        this.getDesktopPane().add(novoClienteFrame, 0);
-        this.getDesktopPane().repaint();
+
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
-    private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed
-        int indexRow = jTable1.getSelectedRow();
-        Object[] objects = clienteTableModel.getRow(indexRow);
-        clienteController.deletar((Serializable) objects[0]);
-        atualizarTabelaCliente();
-    }//GEN-LAST:event_jButtonDeletarActionPerformed
+    private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
+
+    }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
-        int indexRow = jTable1.getSelectedRow();
-        Object[] objects = clienteTableModel.getRow(indexRow);
-        Cliente cliente = clienteController.ler((Serializable) objects[0]);
-        atualizarClienteFrame = new AtualizarClienteFrame(cliente);
-        atualizarClienteFrame.setClienteFrameListener(this);
-        atualizarClienteFrame.setVisible(true);
-        atualizarClienteFrame.setClosable(true);
-        atualizarClienteFrame.setResizable(false);
-        atualizarClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        this.getDesktopPane().add(atualizarClienteFrame, 0);
-        this.getDesktopPane().repaint();
+
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ClienteControleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ClienteControleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ClienteControleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ClienteControleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ClienteControleFrame().setVisible(true);
-//            }
-//        });
-//    }
+    private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed
+
+    }//GEN-LAST:event_jButtonDeletarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionar;
@@ -241,19 +169,13 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableUsuarios;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void atualizarClienteControleFrame() {
-        atualizarTabelaCliente();
-    }
-
-    private void atualizarTabelaCliente() {
-        clienteTableModel.removeAll();
-        List<Cliente> clientes = clienteController.listar();
-        clientes.forEach((cliente) -> {
-            clienteTableModel.addRow(cliente);
+private void atualizarTabelaCliente() {
+        usuarioTableModel.removeAll();
+        List<Usuario> usuarios = usuarioController.listar();
+        usuarios.forEach((cliente) -> {
+            usuarioTableModel.addRow(cliente);
         });
     }
 

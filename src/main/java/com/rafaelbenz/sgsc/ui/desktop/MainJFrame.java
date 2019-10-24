@@ -6,6 +6,8 @@
 package com.rafaelbenz.sgsc.ui.desktop;
 
 import com.rafaelbenz.sgsc.ui.desktop.cliente.ClienteControleFrame;
+import com.rafaelbenz.sgsc.ui.desktop.servico.ServicoControleFrame;
+import com.rafaelbenz.sgsc.ui.desktop.usuario.UsuarioControleFrame;
 import javax.swing.JDialog;
 
 /**
@@ -63,6 +65,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenu1.setText("Serviços");
 
         jMenuItem2.setText("Gerenciar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         menuBar.add(jMenu1);
@@ -77,6 +84,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenu3.setText("Usuários");
 
         jMenuItem4.setText("Gerenciar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem4);
 
         menuBar.add(jMenu3);
@@ -123,9 +135,31 @@ public class MainJFrame extends javax.swing.JFrame {
         clienteControleFrame.setResizable(false);
         clienteControleFrame.setLocation(WIDTH, WIDTH);
         clienteControleFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        desktopPane.add(clienteControleFrame);
+        desktopPane.add(clienteControleFrame,0);
         desktopPane.repaint();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        UsuarioControleFrame usuarioControleFrame = new UsuarioControleFrame();
+        usuarioControleFrame.setVisible(true);
+        usuarioControleFrame.setClosable(true);
+        usuarioControleFrame.setResizable(false);
+        usuarioControleFrame.setLocation(WIDTH, WIDTH);
+        usuarioControleFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        desktopPane.add(usuarioControleFrame,0);
+        desktopPane.repaint();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        ServicoControleFrame servicoControleFrame = new ServicoControleFrame();
+        servicoControleFrame.setVisible(true);
+        servicoControleFrame.setClosable(true);
+        servicoControleFrame.setResizable(false);
+        servicoControleFrame.setLocation(WIDTH, WIDTH);
+        servicoControleFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        desktopPane.add(servicoControleFrame,0);
+        desktopPane.repaint();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
