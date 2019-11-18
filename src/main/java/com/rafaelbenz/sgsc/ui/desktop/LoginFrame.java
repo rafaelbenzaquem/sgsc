@@ -42,6 +42,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jPasswordField = new javax.swing.JPasswordField();
         jTextFieldLogin = new javax.swing.JTextField();
         jButtonEntrar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -53,10 +54,10 @@ public class LoginFrame extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login de Usuário", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         jLabelLogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabelLogin.setText("Login:");
+        jLabelLogin.setText("Login*:");
 
         jLabelSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabelSenha.setText("Senha:");
+        jLabelSenha.setText("Senha*:");
 
         jPasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPasswordField.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +76,8 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("* Campos requeridos");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -82,7 +85,7 @@ public class LoginFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(202, Short.MAX_VALUE)
+                        .addContainerGap(225, Short.MAX_VALUE)
                         .addComponent(jButtonEntrar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -94,6 +97,10 @@ public class LoginFrame extends javax.swing.JFrame {
                             .addComponent(jPasswordField)
                             .addComponent(jTextFieldLogin))))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +115,8 @@ public class LoginFrame extends javax.swing.JFrame {
                     .addComponent(jLabelSenha))
                 .addGap(10, 10, 10)
                 .addComponent(jButtonEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jLabel1))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -146,15 +154,18 @@ public class LoginFrame extends javax.swing.JFrame {
         String login = jTextFieldLogin.getText();
         String senha = new StringBuilder().append(jPasswordField.getPassword()).toString();
 
-        usuarioLogado = usuarioController.login(login, senha);
-
-        if (usuarioLogado != null) {
-            MainJFrame mainJFrame = new MainJFrame();
-            mainJFrame.setLocationRelativeTo(null);
-            mainJFrame.setVisible(true);
-            this.dispose();
+        if (login == null || senha == null || login.isEmpty() || senha.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campos 'login' e 'senha' são requeridos!", "Erro!", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Login ou senha estão incorretos!", "Erro!", JOptionPane.ERROR_MESSAGE);
+            usuarioLogado = usuarioController.login(login, senha);
+            if (usuarioLogado == null) {
+                JOptionPane.showMessageDialog(this, "Campo 'login' ou 'senha' estão incorretos!", "Erro!", JOptionPane.ERROR_MESSAGE);
+            } else {
+                MainJFrame mainJFrame = new MainJFrame();
+                mainJFrame.setLocationRelativeTo(null);
+                mainJFrame.setVisible(true);
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_jButtonEntrarActionPerformed
 
@@ -202,6 +213,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEntrar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelLogin;
     private javax.swing.JLabel jLabelSenha;
     private javax.swing.JPanel jPanel1;

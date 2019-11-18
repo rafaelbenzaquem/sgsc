@@ -11,6 +11,7 @@ import com.rafaelbenz.sgsc.modelo.Cliente;
 import java.io.Serializable;
 import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -180,10 +181,18 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed
-        int indexRow = jTable1.getSelectedRow();
-        Object[] objects = clienteTableModel.getRow(indexRow);
-        clienteController.deletar((Serializable) objects[0]);
-        atualizarTabelaCliente();
+        int option = JOptionPane.showConfirmDialog(this, "Você realmente deseja deletar este cliente?", "Deletar Cliente", JOptionPane.YES_NO_OPTION);
+        if (option == 0) {
+            int indexRow = jTable1.getSelectedRow();
+            Object[] objects = clienteTableModel.getRow(indexRow);
+            boolean isDeleted = clienteController.deletar((Serializable) objects[0]);
+            if (isDeleted) {
+                atualizarTabelaCliente();
+                JOptionPane.showMessageDialog(this, "O cliente foi deletado com sucesso.", "Deletar Cliente", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "O cliente não foi possível deletar esse cliente.", "Deletar Cliente", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jButtonDeletarActionPerformed
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed

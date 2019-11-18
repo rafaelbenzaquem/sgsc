@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -311,9 +312,14 @@ public class NovoClienteFrame extends javax.swing.JInternalFrame {
         cliente.setTelefones(telefones);
         cliente.setEnderecos(enderecos);
 
-        clienteController.salvar(cliente);
-        clienteFrameListener.atualizarClienteControleFrame();
-        this.dispose();
+        boolean isSaved = clienteController.salvar(cliente);
+        if (isSaved) {
+            clienteFrameListener.atualizarClienteControleFrame();
+            JOptionPane.showMessageDialog(this, "O cliente foi cadastrado com sucesso.", "Cadastrar Cliente", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Não foi possível cadastrar o cliente.", "Cadastrar Cliente", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonAddTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTelefoneActionPerformed

@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -339,9 +340,14 @@ public class AtualizarClienteFrame extends javax.swing.JInternalFrame {
         cliente.setTelefones(telefones);
         cliente.setEnderecos(enderecos);
 
-        clienteController.atualizar(cliente);
-        clienteFrameListener.atualizarClienteControleFrame();
-        this.dispose();
+        boolean isUpdated = clienteController.atualizar(cliente);
+        if (isUpdated) {
+            clienteFrameListener.atualizarClienteControleFrame();
+            JOptionPane.showMessageDialog(this, "O cliente foi atualizado com sucesso.", "Atualizar Cliente", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "O cliente não foi possível atualizar os dados do cliente.", "Atualizar Cliente", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonAddTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTelefoneActionPerformed
@@ -359,7 +365,6 @@ public class AtualizarClienteFrame extends javax.swing.JInternalFrame {
     private void jButtonRemoveTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveTelefoneActionPerformed
         int row = jTableTelefones.getSelectedRow();
         String telefone = (String) telefoneTableModel.getValueAt(row, 0);
-        System.out.println("row: " + row + ", fone: " + telefone);
         telefones.remove(telefone);
         telefoneTableModel.removeRow(row);
     }//GEN-LAST:event_jButtonRemoveTelefoneActionPerformed

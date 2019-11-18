@@ -79,7 +79,7 @@ public class ClienteController implements IController<Cliente> {
         Response response = rafson.delete(uriClientes + id);
         System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
-        return code.contains("200");
+        return code.contains("204");
     }
 
 }
