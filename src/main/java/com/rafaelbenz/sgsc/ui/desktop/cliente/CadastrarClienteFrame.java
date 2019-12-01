@@ -23,10 +23,10 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Rafael Benzaquem Neto
  */
-public class NovoClienteFrame extends javax.swing.JInternalFrame {
+public class CadastrarClienteFrame extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form NovoClienteFrame
+     * Creates new form CadastrarClienteFrame
      */
     DefaultTableModel telefoneTableModel = new DefaultTableModel();
     DefaultTableModel enderecoTableModel = new DefaultTableModel();
@@ -40,7 +40,7 @@ public class NovoClienteFrame extends javax.swing.JInternalFrame {
 
     private ClienteControleFrameListener clienteFrameListener;
 
-    public NovoClienteFrame() {
+    public CadastrarClienteFrame() {
         initComponents();
         telefoneTableModel.addColumn("Telefones cadastrados");
         enderecoTableModel.addColumn("Logradouro");
@@ -94,7 +94,7 @@ public class NovoClienteFrame extends javax.swing.JInternalFrame {
         jButtonRemoveTelefone = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(236, 251, 251));
 
@@ -383,20 +383,20 @@ public class NovoClienteFrame extends javax.swing.JInternalFrame {
 //        try {
 //            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(NovoClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(CadastrarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(NovoClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(CadastrarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(NovoClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(CadastrarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(NovoClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(CadastrarClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new NovoClienteFrame().setVisible(true);
+//                new CadastrarClienteFrame().setVisible(true);
 //            }
 //        });
 //    }

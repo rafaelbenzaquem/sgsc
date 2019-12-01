@@ -20,7 +20,7 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame implements 
 
     private UsuarioTableModel usuarioTableModel = new UsuarioTableModel();
     private UsuarioController usuarioController = new UsuarioController();
-    private NovoUsuarioFrame novoUsuarioFrame = new NovoUsuarioFrame();
+    private CadastrarUsuarioFrame novoUsuarioFrame = new CadastrarUsuarioFrame();
 
     public UsuarioControleFrame() {
         initComponents();
@@ -150,7 +150,7 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame implements 
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        novoUsuarioFrame = new NovoUsuarioFrame();
+        novoUsuarioFrame = new CadastrarUsuarioFrame();
         novoUsuarioFrame.setUsuarioFrameListener(this);
         novoUsuarioFrame.setVisible(true);
         novoUsuarioFrame.setClosable(true);

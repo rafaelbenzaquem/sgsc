@@ -16,12 +16,12 @@ import javax.swing.JOptionPane;
  *
  * @author rbnbs
  */
-public class NovoUsuarioFrame extends javax.swing.JInternalFrame {
+public class AtualizarUsuarioFrame extends javax.swing.JInternalFrame {
 
     UsuarioControleFrameListener frameListener;
     UsuarioController usuarioControler = new UsuarioController();
 
-    public NovoUsuarioFrame() {
+    public AtualizarUsuarioFrame() {
         initComponents();
     }
 

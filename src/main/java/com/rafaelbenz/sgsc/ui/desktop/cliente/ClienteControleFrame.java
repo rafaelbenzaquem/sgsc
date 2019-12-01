@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class ClienteControleFrame extends javax.swing.JInternalFrame implements ClienteControleFrameListener {
 
     ClienteTableModel clienteTableModel = new ClienteTableModel();
-    NovoClienteFrame novoClienteFrame;
+    CadastrarClienteFrame novoClienteFrame;
     AtualizarClienteFrame atualizarClienteFrame;
     VisualizarClienteFrame visualizarClienteFrame;
 
@@ -170,7 +170,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        novoClienteFrame = new NovoClienteFrame();
+        novoClienteFrame = new CadastrarClienteFrame();
         novoClienteFrame.setClienteFrameListener(this);
         novoClienteFrame.setVisible(true);
         novoClienteFrame.setClosable(true);
