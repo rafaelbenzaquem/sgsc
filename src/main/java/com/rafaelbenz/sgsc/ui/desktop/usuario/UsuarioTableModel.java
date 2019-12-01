@@ -139,7 +139,7 @@ public class UsuarioTableModel extends AbstractTableModel {
                 case 1:
                     return usuario.getLogin();
                 case 2:
-                    return TipoUsuario.toEnum(usuario.getTipo());
+                    return TipoUsuario.toEnum(usuario.getTipo()).getDescricao();
             }
 
         }

@@ -22,26 +22,38 @@ import java.util.List;
 public class UsuarioController implements IController<Usuario> {
 
     private final Rafson rafson;
-    private final String URL = "http://localhost:8080/usuarios";
+    private final String URI = "http://localhost:8080/usuarios";
 
     public UsuarioController() {
         rafson = new Rafson();
     }
 
     @Override
-    public Boolean salvar(Usuario e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean salvar(Usuario usuario) {
+        String body = new Gson().toJson(usuario);
+        Response response = rafson.post(URI, body);
+        System.out.println(response.getHeader());
+        String code = response.getHeader().get(null).get(0);
+        return code.contains("201");
     }
 
     @Override
     public Usuario ler(Serializable id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Usuario usuario = new Usuario();
+        Response response = rafson.get(URI + id);
+        System.out.println(response.getHeader());
+        String code = response.getHeader().get(null).get(0);
+        if (code.contains("200")) {
+            String resposta = response.getBody();
+            usuario = new Gson().fromJson(resposta, Usuario.class);
+        }
+        return usuario;
     }
 
     @Override
     public List<Usuario> listar() {
         List<Usuario> usuarios = new ArrayList<>();
-        Response response = rafson.get(URL);
+        Response response = rafson.get(URI);
         String code = response.getHeader().get(null).get(0);
         if (code.contains("200")) {
             String resposta = response.getBody();
@@ -51,15 +63,22 @@ public class UsuarioController implements IController<Usuario> {
         }
         return usuarios;
     }
-    
+
     @Override
-    public Boolean atualizar(Usuario e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean atualizar(Usuario cliente) {
+        String body = new Gson().toJson(cliente);
+        Response response = rafson.put(URI + cliente.getId(), body);
+        System.out.println(response.getHeader());
+        String code = response.getHeader().get(null).get(0);
+        return code.contains("204");
     }
 
     @Override
     public Boolean deletar(Serializable id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Response response = rafson.delete(URI + id);
+        System.out.println(response.getHeader());
+        String code = response.getHeader().get(null).get(0);
+        return code.contains("204");
     }
 
     public Usuario login(String login, String senha) {
@@ -67,7 +86,8 @@ public class UsuarioController implements IController<Usuario> {
                 + "\"login\":\"" + login + "\","
                 + "\"senha\":\"" + senha + "\""
                 + "}";
-        Response response = rafson.post(URL + "/login", jsonLogin);
+        Response response = rafson.post(URI + "/login", jsonLogin);
+        System.out.println(response.getHeader());
         Usuario usuarioLogado = new Gson().fromJson(response.getBody(), Usuario.class);
         return usuarioLogado;
     }

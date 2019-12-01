@@ -7,16 +7,20 @@ package com.rafaelbenz.sgsc.ui.desktop.usuario;
 
 import com.rafaelbenz.sgsc.controller.rest.UsuarioController;
 import com.rafaelbenz.sgsc.modelo.Usuario;
+import java.io.Serializable;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Rafael Benzaquem Neto
  */
-public class UsuarioControleFrame extends javax.swing.JInternalFrame {
+public class UsuarioControleFrame extends javax.swing.JInternalFrame implements UsuarioControleFrameListener {
 
     private UsuarioTableModel usuarioTableModel = new UsuarioTableModel();
-    private UsuarioController usuarioController= new UsuarioController();
+    private UsuarioController usuarioController = new UsuarioController();
+    private NovoUsuarioFrame novoUsuarioFrame = new NovoUsuarioFrame();
 
     public UsuarioControleFrame() {
         initComponents();
@@ -35,7 +39,7 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableUsuarios = new javax.swing.JTable();
+        jTableUsuario = new javax.swing.JTable();
         jButtonAdicionar = new javax.swing.JButton();
         jButtonVisualizar = new javax.swing.JButton();
         jButtonAtualizar = new javax.swing.JButton();
@@ -48,8 +52,8 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame {
         jPanel2.setBackground(new java.awt.Color(236, 251, 251));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Controle Usuário"));
 
-        jTableUsuarios.setModel(usuarioTableModel);
-        jScrollPane1.setViewportView(jTableUsuarios);
+        jTableUsuario.setModel(usuarioTableModel);
+        jScrollPane1.setViewportView(jTableUsuario);
 
         jButtonAdicionar.setText("Adicionar");
         jButtonAdicionar.setToolTipText("");
@@ -61,6 +65,7 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame {
         });
 
         jButtonVisualizar.setText("Visualizar");
+        jButtonVisualizar.setEnabled(false);
         jButtonVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVisualizarActionPerformed(evt);
@@ -145,7 +150,14 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-
+        novoUsuarioFrame = new NovoUsuarioFrame();
+        novoUsuarioFrame.setUsuarioFrameListener(this);
+        novoUsuarioFrame.setVisible(true);
+        novoUsuarioFrame.setClosable(true);
+        novoUsuarioFrame.setResizable(false);
+        novoUsuarioFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        this.getDesktopPane().add(novoUsuarioFrame, 0);
+        this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
@@ -157,7 +169,21 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
     private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed
-
+        int option = JOptionPane.showConfirmDialog(this, "Você realmente deseja deletar este usuário?", "Deletar Usuário", JOptionPane.YES_NO_OPTION);
+        if (option == 0) {
+            int indexRow = jTableUsuario.getSelectedRow();
+            Object[] objects = usuarioTableModel.getRow(indexRow);
+            boolean isDeleted = false;
+            if (usuarioTableModel.getRowCount() > 1) {
+                isDeleted = usuarioController.deletar((Serializable) objects[0]);
+            }
+            if (isDeleted) {
+                atualizarTabelaCliente();
+                JOptionPane.showMessageDialog(this, "O usuário foi deletado com sucesso.", "Deletar Usuário", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Não foi possível deletar esse usuário.", "Deletar Cliente", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jButtonDeletarActionPerformed
 
 
@@ -169,12 +195,25 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableUsuarios;
+    private javax.swing.JTable jTableUsuario;
     // End of variables declaration//GEN-END:variables
-private void atualizarTabelaCliente() {
+//private void atualizarTabelaCliente() {
+//        usuarioTableModel.removeAll();
+//        List<Usuario> usuarios = usuarioController.listar();
+//        usuarios.forEach((cliente) -> {
+//            usuarioTableModel.addRow(cliente);
+//        });
+//    }
+
+    @Override
+    public void atualizarUsuarioControleFrame() {
+        atualizarTabelaCliente();
+    }
+
+    private void atualizarTabelaCliente() {
         usuarioTableModel.removeAll();
-        List<Usuario> usuarios = usuarioController.listar();
-        usuarios.forEach((cliente) -> {
+        List<Usuario> clientes = usuarioController.listar();
+        clientes.forEach((cliente) -> {
             usuarioTableModel.addRow(cliente);
         });
     }

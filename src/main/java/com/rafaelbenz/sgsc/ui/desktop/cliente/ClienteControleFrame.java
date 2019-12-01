@@ -46,7 +46,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCliente = new javax.swing.JTable();
         jButtonAdicionar = new javax.swing.JButton();
         jButtonVisualizar = new javax.swing.JButton();
         jButtonAtualizar = new javax.swing.JButton();
@@ -59,8 +59,8 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
         jPanel2.setBackground(new java.awt.Color(236, 251, 251));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Controle Cliente"));
 
-        jTable1.setModel(clienteTableModel);
-        jScrollPane1.setViewportView(jTable1);
+        jTableCliente.setModel(clienteTableModel);
+        jScrollPane1.setViewportView(jTableCliente);
 
         jButtonAdicionar.setText("Adicionar");
         jButtonAdicionar.setToolTipText("");
@@ -156,7 +156,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
-        int indexRow = jTable1.getSelectedRow();
+        int indexRow = jTableCliente.getSelectedRow();
         Object[] objects = clienteTableModel.getRow(indexRow);
         Cliente cliente = clienteController.ler((Serializable) objects[0]);
         visualizarClienteFrame = new VisualizarClienteFrame(cliente);
@@ -183,7 +183,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed
         int option = JOptionPane.showConfirmDialog(this, "Você realmente deseja deletar este cliente?", "Deletar Cliente", JOptionPane.YES_NO_OPTION);
         if (option == 0) {
-            int indexRow = jTable1.getSelectedRow();
+            int indexRow = jTableCliente.getSelectedRow();
             Object[] objects = clienteTableModel.getRow(indexRow);
             boolean isDeleted = clienteController.deletar((Serializable) objects[0]);
             if (isDeleted) {
@@ -196,7 +196,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     }//GEN-LAST:event_jButtonDeletarActionPerformed
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
-        int indexRow = jTable1.getSelectedRow();
+        int indexRow = jTableCliente.getSelectedRow();
         Object[] objects = clienteTableModel.getRow(indexRow);
         Cliente cliente = clienteController.ler((Serializable) objects[0]);
         atualizarClienteFrame = new AtualizarClienteFrame(cliente);
@@ -250,7 +250,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableCliente;
     // End of variables declaration//GEN-END:variables
 
     @Override

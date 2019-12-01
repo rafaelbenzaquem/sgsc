@@ -22,7 +22,7 @@ import java.util.List;
 public class ClienteController implements IController<Cliente> {
 
     private final Rafson rafson;
-    private String uriClientes = "http://localhost:8080/clientes/";
+    private String URI = "http://localhost:8080/clientes";
 
     public ClienteController() {
         this.rafson = new Rafson();
@@ -31,7 +31,7 @@ public class ClienteController implements IController<Cliente> {
     @Override
     public Boolean salvar(Cliente cliente) {
         String body = new Gson().toJson(cliente);
-        Response response = rafson.post(uriClientes, body);
+        Response response = rafson.post(URI, body);
         System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         return code.contains("201");
@@ -40,7 +40,7 @@ public class ClienteController implements IController<Cliente> {
     @Override
     public Cliente ler(Serializable id) {
         Cliente cliente = new Cliente();
-        Response response = rafson.get(uriClientes + id);
+        Response response = rafson.get(URI + id);
         System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         if (code.contains("200")) {
@@ -53,7 +53,7 @@ public class ClienteController implements IController<Cliente> {
     @Override
     public List<Cliente> listar() {
         List<Cliente> clientes = new ArrayList<>();
-        Response response = rafson.get(uriClientes);
+        Response response = rafson.get(URI);
         System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         if (code.contains("200")) {
@@ -68,7 +68,7 @@ public class ClienteController implements IController<Cliente> {
     @Override
     public Boolean atualizar(Cliente cliente) {
         String body = new Gson().toJson(cliente);
-        Response response = rafson.put(uriClientes + cliente.getId(), body);
+        Response response = rafson.put(URI + cliente.getId(), body);
         System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         return code.contains("204");
@@ -76,7 +76,7 @@ public class ClienteController implements IController<Cliente> {
 
     @Override
     public Boolean deletar(Serializable id) {
-        Response response = rafson.delete(uriClientes + id);
+        Response response = rafson.delete(URI + id);
         System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         return code.contains("204");
