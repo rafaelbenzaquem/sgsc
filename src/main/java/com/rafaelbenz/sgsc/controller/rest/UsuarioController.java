@@ -22,7 +22,7 @@ import java.util.List;
 public class UsuarioController implements IController<Usuario> {
 
     private final Rafson rafson;
-    private final String URI = "http://localhost:8080/usuarios";
+    private final String URI = "http://localhost:8080/usuarios/";
 
     public UsuarioController() {
         rafson = new Rafson();

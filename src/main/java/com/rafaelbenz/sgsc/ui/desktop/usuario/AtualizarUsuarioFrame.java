@@ -5,7 +5,6 @@
  */
 package com.rafaelbenz.sgsc.ui.desktop.usuario;
 
-import com.rafaelbenz.sgsc.controller.IController;
 import com.rafaelbenz.sgsc.controller.rest.UsuarioController;
 import com.rafaelbenz.sgsc.modelo.Usuario;
 import com.rafaelbenz.sgsc.modelo.enums.TipoUsuario;
@@ -20,9 +19,19 @@ public class AtualizarUsuarioFrame extends javax.swing.JInternalFrame {
 
     UsuarioControleFrameListener frameListener;
     UsuarioController usuarioControler = new UsuarioController();
+    private Usuario usuario;
 
-    public AtualizarUsuarioFrame() {
+    public AtualizarUsuarioFrame(Usuario usuario) {
         initComponents();
+        this.usuario = usuario;
+        preencherFormularioUsuario(usuario);
+    }
+
+    private void preencherFormularioUsuario(Usuario usuario) {
+        jTextFieldNome.setText(usuario.getNome());
+        jTextFieldLogin.setText(usuario.getLogin());
+        jComboBoxTipo.setSelectedIndex(usuario.getTipo());
+
     }
 
     /**
@@ -52,7 +61,7 @@ public class AtualizarUsuarioFrame extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(236, 251, 251));
 
         jPanel2.setBackground(new java.awt.Color(236, 251, 251));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Novo Usuário"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Atualizar Usuário"));
 
         jLabelNome.setText("Nome:");
 
@@ -64,7 +73,7 @@ public class AtualizarUsuarioFrame extends javax.swing.JInternalFrame {
 
         jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuário Padrão", "Gerente", "Administrador"}));
 
-        jButtonCriar.setText("Criar");
+        jButtonCriar.setText("Atualizar");
         jButtonCriar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCriarActionPerformed(evt);
@@ -185,14 +194,19 @@ public class AtualizarUsuarioFrame extends javax.swing.JInternalFrame {
         String nome = jTextFieldNome.getText();
         String login = jTextFieldLogin.getText();
         int tipo = jComboBoxTipo.getSelectedIndex();
-
+        int id = this.usuario.getId();
         if (nome == null || login == null || nome.isEmpty() || login.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Campo nome e login não podem ficar em branco!", "Cadastrar Usuário", JOptionPane.INFORMATION_MESSAGE);
         } else if (Arrays.equals(password1, password2)) {
-            Usuario novoUsuario = new Usuario(nome, login, new StringBuilder().append(password1).toString(), TipoUsuario.toEnum(tipo));
-            usuarioControler.salvar(novoUsuario);
-            frameListener.atualizarUsuarioControleFrame();
-            this.dispose();
+            this.usuario = new Usuario(id, nome, login, new StringBuilder().append(password1).toString(), TipoUsuario.toEnum(tipo));
+            boolean isUpdated = usuarioControler.atualizar(this.usuario);
+            if (isUpdated) {
+                frameListener.atualizarUsuarioControleFrame();
+                JOptionPane.showMessageDialog(this, "O usuário foi atualziado com sucesso.", "Atualizar Usuário", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Não foi possível atualizar o usuário.", "Atualizar Usuário", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Senhas não coincidem!", "Cadastrar Usuário", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -223,4 +237,5 @@ public class AtualizarUsuarioFrame extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldLogin;
     private javax.swing.JTextField jTextFieldNome;
     // End of variables declaration//GEN-END:variables
+
 }

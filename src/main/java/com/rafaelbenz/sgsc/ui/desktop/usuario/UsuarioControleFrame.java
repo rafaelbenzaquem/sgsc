@@ -20,7 +20,6 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame implements 
 
     private UsuarioTableModel usuarioTableModel = new UsuarioTableModel();
     private UsuarioController usuarioController = new UsuarioController();
-    private CadastrarUsuarioFrame novoUsuarioFrame = new CadastrarUsuarioFrame();
 
     public UsuarioControleFrame() {
         initComponents();
@@ -66,11 +65,6 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame implements 
 
         jButtonVisualizar.setText("Visualizar");
         jButtonVisualizar.setEnabled(false);
-        jButtonVisualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVisualizarActionPerformed(evt);
-            }
-        });
 
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +144,7 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame implements 
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        novoUsuarioFrame = new CadastrarUsuarioFrame();
+        CadastrarUsuarioFrame novoUsuarioFrame = new CadastrarUsuarioFrame();
         novoUsuarioFrame.setUsuarioFrameListener(this);
         novoUsuarioFrame.setVisible(true);
         novoUsuarioFrame.setClosable(true);
@@ -160,12 +154,18 @@ public class UsuarioControleFrame extends javax.swing.JInternalFrame implements 
         this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
-    private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
-
-    }//GEN-LAST:event_jButtonVisualizarActionPerformed
-
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
+        int indexRow = jTableUsuario.getSelectedRow();
+        Usuario usuario = usuarioTableModel.getObject(indexRow);
+        AtualizarUsuarioFrame atualizarUsuarioFrame = new AtualizarUsuarioFrame(usuario);
 
+        atualizarUsuarioFrame.setUsuarioFrameListener(this);
+        atualizarUsuarioFrame.setVisible(true);
+        atualizarUsuarioFrame.setClosable(true);
+        atualizarUsuarioFrame.setResizable(false);
+        atualizarUsuarioFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        this.getDesktopPane().add(atualizarUsuarioFrame, 0);
+        this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
     private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed

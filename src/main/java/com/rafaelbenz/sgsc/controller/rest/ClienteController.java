@@ -22,7 +22,7 @@ import java.util.List;
 public class ClienteController implements IController<Cliente> {
 
     private final Rafson rafson;
-    private String URI = "http://localhost:8080/clientes";
+    private String URI = "http://localhost:8080/clientes/";
 
     public ClienteController() {
         this.rafson = new Rafson();

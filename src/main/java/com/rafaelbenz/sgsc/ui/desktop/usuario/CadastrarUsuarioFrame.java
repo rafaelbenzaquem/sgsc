@@ -5,7 +5,6 @@
  */
 package com.rafaelbenz.sgsc.ui.desktop.usuario;
 
-import com.rafaelbenz.sgsc.controller.IController;
 import com.rafaelbenz.sgsc.controller.rest.UsuarioController;
 import com.rafaelbenz.sgsc.modelo.Usuario;
 import com.rafaelbenz.sgsc.modelo.enums.TipoUsuario;
@@ -47,7 +46,6 @@ public class CadastrarUsuarioFrame extends javax.swing.JInternalFrame {
         jButtonCriar = new javax.swing.JButton();
         jLabelSenha2 = new javax.swing.JLabel();
         jPasswordField2 = new javax.swing.JPasswordField();
-        jLabelValidarSenha = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(236, 251, 251));
 
@@ -64,7 +62,7 @@ public class CadastrarUsuarioFrame extends javax.swing.JInternalFrame {
 
         jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuário Padrão", "Gerente", "Administrador"}));
 
-        jButtonCriar.setText("Criar");
+        jButtonCriar.setText("Salvar");
         jButtonCriar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCriarActionPerformed(evt);
@@ -79,8 +77,6 @@ public class CadastrarUsuarioFrame extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabelValidarSenha.setText("Validar Senha");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -88,10 +84,7 @@ public class CadastrarUsuarioFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelValidarSenha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCriar))
+                    .addComponent(jButtonCriar)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabelNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -137,15 +130,9 @@ public class CadastrarUsuarioFrame extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSenha2)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(jButtonCriar)
-                        .addGap(10, 10, 10))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelValidarSenha)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jButtonCriar)
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -190,9 +177,14 @@ public class CadastrarUsuarioFrame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Campo nome e login não podem ficar em branco!", "Cadastrar Usuário", JOptionPane.INFORMATION_MESSAGE);
         } else if (Arrays.equals(password1, password2)) {
             Usuario novoUsuario = new Usuario(nome, login, new StringBuilder().append(password1).toString(), TipoUsuario.toEnum(tipo));
-            usuarioControler.salvar(novoUsuario);
-            frameListener.atualizarUsuarioControleFrame();
-            this.dispose();
+            boolean isSaved = usuarioControler.salvar(novoUsuario);
+            if (isSaved) {
+                frameListener.atualizarUsuarioControleFrame();
+                JOptionPane.showMessageDialog(this, "O usuário foi salvo com sucesso.", "Cadastrar Usuário", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Não foi possível salvar o usuário.", "Cadastrar Usuário", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Senhas não coincidem!", "Cadastrar Usuário", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -215,7 +207,6 @@ public class CadastrarUsuarioFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelSenha1;
     private javax.swing.JLabel jLabelSenha2;
     private javax.swing.JLabel jLabelTipo;
-    private javax.swing.JLabel jLabelValidarSenha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField1;

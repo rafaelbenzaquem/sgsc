@@ -75,11 +75,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabelValidarSenha" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButtonCriar" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jButtonCriar" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabelNome" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -138,18 +134,9 @@
                           <Component id="jLabelSenha2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jPasswordField2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace pref="19" max="32767" attributes="0"/>
-                              <Component id="jButtonCriar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabelValidarSenha" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace pref="10" max="32767" attributes="0"/>
+                      <Component id="jButtonCriar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -193,7 +180,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCriar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Criar"/>
+                <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCriarActionPerformed"/>
@@ -208,11 +195,6 @@
               <Events>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jPasswordField2KeyPressed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabelValidarSenha">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Validar Senha"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
