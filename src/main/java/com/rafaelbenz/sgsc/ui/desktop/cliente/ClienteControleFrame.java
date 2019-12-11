@@ -57,7 +57,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
         jPanel1.setBackground(new java.awt.Color(236, 251, 251));
 
         jPanel2.setBackground(new java.awt.Color(236, 251, 251));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Controle Cliente"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Controle de Clientes"));
 
         jTableCliente.setModel(clienteTableModel);
         jScrollPane1.setViewportView(jTableCliente);
