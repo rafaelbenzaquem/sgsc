@@ -65,9 +65,9 @@ public class UsuarioController implements IController<Usuario> {
     }
 
     @Override
-    public Boolean atualizar(Usuario cliente) {
-        String body = new Gson().toJson(cliente);
-        Response response = rafson.put(URI + cliente.getId(), body);
+    public Boolean atualizar(Usuario usuario) {
+        String body = new Gson().toJson(usuario);
+        Response response = rafson.put(URI + usuario.getId(), body);
         System.out.println(response.getHeader());
         String code = response.getHeader().get(null).get(0);
         return code.contains("204");

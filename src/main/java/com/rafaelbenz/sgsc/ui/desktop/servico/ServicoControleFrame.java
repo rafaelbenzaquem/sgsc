@@ -5,23 +5,24 @@
  */
 package com.rafaelbenz.sgsc.ui.desktop.servico;
 
-import javax.swing.table.DefaultTableModel;
+import com.rafaelbenz.sgsc.controller.rest.ServicoController;
+import com.rafaelbenz.sgsc.modelo.Servico;
+import java.util.List;
 
 /**
  *
- * @author adm_rafaelneto
+ * @author Rafael Benzaquem Neto
  */
 public class ServicoControleFrame extends javax.swing.JInternalFrame {
 
-    
-    DefaultTableModel tableModelServicos = new DefaultTableModel();
+    ServicoController servicoController = new ServicoController();
+    ServicoTableModel tableModelServicos = new ServicoTableModel();
     /**
      * Creates new form ServicoControleFrame
      */
     public ServicoControleFrame() {
         initComponents();
-        tableModelServicos.addColumn("NOME");
-        tableModelServicos.addColumn("CATEGORIAS");
+        atualizarTabelaServicos();
     }
 
     /**
@@ -119,7 +120,7 @@ public class ServicoControleFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,4 +171,11 @@ public class ServicoControleFrame extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableServicos;
     // End of variables declaration//GEN-END:variables
+
+    private void atualizarTabelaServicos() {
+     tableModelServicos.removeAll();
+        List<Servico> servicos = servicoController.listar();
+        servicos.forEach((servico) -> {
+            tableModelServicos.addRow(servico);
+        });}
 }
