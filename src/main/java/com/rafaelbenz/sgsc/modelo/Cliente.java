@@ -18,9 +18,9 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;
 
-    private List<Endereco> enderecos = new ArrayList<>();
+    private List<Endereco> enderecos;
 
-    private Set<String> telefones = new HashSet<>();
+    private Set<String> telefones;
 
     public Cliente() {
     }

@@ -6,6 +6,7 @@
 package com.rafaelbenz.sgsc.ui.desktop;
 
 import com.rafaelbenz.sgsc.ui.desktop.cliente.ClienteControleFrame;
+import com.rafaelbenz.sgsc.ui.desktop.contrato.ContratoControleFrame;
 import com.rafaelbenz.sgsc.ui.desktop.servico.ServicoControleFrame;
 import com.rafaelbenz.sgsc.ui.desktop.usuario.UsuarioControleFrame;
 import javax.swing.JDialog;
@@ -77,6 +78,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenu2.setText("Contratos");
 
         jMenuItem3.setText("Gerenciar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         menuBar.add(jMenu2);
@@ -135,7 +141,7 @@ public class MainJFrame extends javax.swing.JFrame {
         clienteControleFrame.setResizable(false);
         clienteControleFrame.setLocation(WIDTH, WIDTH);
         clienteControleFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        desktopPane.add(clienteControleFrame,0);
+        desktopPane.add(clienteControleFrame, 0);
         desktopPane.repaint();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -146,7 +152,7 @@ public class MainJFrame extends javax.swing.JFrame {
         usuarioControleFrame.setResizable(false);
         usuarioControleFrame.setLocation(WIDTH, WIDTH);
         usuarioControleFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        desktopPane.add(usuarioControleFrame,0);
+        desktopPane.add(usuarioControleFrame, 0);
         desktopPane.repaint();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -157,9 +163,20 @@ public class MainJFrame extends javax.swing.JFrame {
         servicoControleFrame.setResizable(false);
         servicoControleFrame.setLocation(WIDTH, WIDTH);
         servicoControleFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        desktopPane.add(servicoControleFrame,0);
+        desktopPane.add(servicoControleFrame, 0);
         desktopPane.repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        ContratoControleFrame contratoControleFrame = new ContratoControleFrame();
+        contratoControleFrame.setVisible(true);
+        contratoControleFrame.setClosable(true);
+        contratoControleFrame.setResizable(false);
+        contratoControleFrame.setLocation(WIDTH, WIDTH);
+        contratoControleFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        desktopPane.add(contratoControleFrame, 0);
+        desktopPane.repaint();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

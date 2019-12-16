@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rafaelbenz.sgsc.ui.desktop.cliente;
+package com.rafaelbenz.sgsc.ui.desktop.contrato;
 
-import com.rafaelbenz.sgsc.controller.rest.ClienteController;
+import com.rafaelbenz.sgsc.ui.desktop.cliente.*;
 import com.rafaelbenz.sgsc.controller.IController;
-import com.rafaelbenz.sgsc.modelo.Cliente;
+import com.rafaelbenz.sgsc.controller.rest.ContratoController;
+import com.rafaelbenz.sgsc.modelo.Contrato;
 import java.io.Serializable;
 import java.util.List;
 import javax.swing.JDialog;
@@ -17,21 +18,21 @@ import javax.swing.JOptionPane;
  *
  * @author Rafeal Benzaquem Neto
  */
-public class ClienteControleFrame extends javax.swing.JInternalFrame implements ClienteControleFrameListener {
+public class ContratoControleFrame extends javax.swing.JInternalFrame implements ClienteControleFrameListener {
 
-    ClienteTableModel clienteTableModel = new ClienteTableModel();
-    CadastrarClienteFrame cadastrarClienteFrame;
-    AtualizarClienteFrame atualizarClienteFrame;
-    VisualizarClienteFrame visualizarClienteFrame;
+    ContratoTableModel contratoTableModel = new ContratoTableModel();
+    CadastrarContratoFrame cadastrarContratoFrame;
+//    AtualizarClienteFrame atualizarClienteFrame;
+//    VisualizarClienteFrame visualizarClienteFrame;
 
-    IController<Cliente> clienteController = new ClienteController();
+    IController<Contrato> contratoController = new ContratoController();
 
     /**
      * Creates new form ClienteFrame
      */
-    public ClienteControleFrame() {
+    public ContratoControleFrame() {
         initComponents();
-        atualizarTabelaCliente();
+        atualizarTabelaContrato();
     }
 
     /**
@@ -57,12 +58,12 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
         jPanel1.setBackground(new java.awt.Color(236, 251, 251));
 
         jPanel2.setBackground(new java.awt.Color(236, 251, 251));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Controle de Clientes"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Contratos Realizados"));
 
-        jTableCliente.setModel(clienteTableModel);
+        jTableCliente.setModel(contratoTableModel);
         jScrollPane1.setViewportView(jTableCliente);
 
-        jButtonAdicionar.setText("Adicionar");
+        jButtonAdicionar.setText("Criar");
         jButtonAdicionar.setToolTipText("");
         jButtonAdicionar.setPreferredSize(new java.awt.Dimension(75, 20));
         jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,23 +99,23 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
+                        .addGap(82, 82, 82)
                         .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                         .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
+                        .addGap(78, 78, 78)
                         .addComponent(jButtonDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,7 +139,7 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,27 +157,27 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
-        int indexRow = jTableCliente.getSelectedRow();
-        Object[] objects = clienteTableModel.getRow(indexRow);
-        Cliente cliente = clienteController.ler((Serializable) objects[0]);
-        visualizarClienteFrame = new VisualizarClienteFrame(cliente);
-        visualizarClienteFrame.setClienteFrameListener(this);
-        visualizarClienteFrame.setVisible(true);
-        visualizarClienteFrame.setClosable(true);
-        visualizarClienteFrame.setResizable(false);
-        visualizarClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        this.getDesktopPane().add(visualizarClienteFrame, 0);
-        this.getDesktopPane().repaint();
+//        int indexRow = jTableCliente.getSelectedRow();
+//        Object[] objects = contratoTableModel.getRow(indexRow);
+//        Cliente cliente = contratoController.ler((Serializable) objects[0]);
+//        visualizarClienteFrame = new VisualizarClienteFrame(cliente);
+//        visualizarClienteFrame.setClienteFrameListener(this);
+//        visualizarClienteFrame.setVisible(true);
+//        visualizarClienteFrame.setClosable(true);
+//        visualizarClienteFrame.setResizable(false);
+//        visualizarClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+//        this.getDesktopPane().add(visualizarClienteFrame, 0);
+//        this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        cadastrarClienteFrame = new CadastrarClienteFrame();
-        cadastrarClienteFrame.setClienteFrameListener(this);
-        cadastrarClienteFrame.setVisible(true);
-        cadastrarClienteFrame.setClosable(true);
-        cadastrarClienteFrame.setResizable(false);
-        cadastrarClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        this.getDesktopPane().add(cadastrarClienteFrame, 0);
+        cadastrarContratoFrame = new CadastrarContratoFrame();
+//        cadastrarContratoFrame.setClienteFrameListener(this);
+        cadastrarContratoFrame.setVisible(true);
+        cadastrarContratoFrame.setClosable(true);
+        cadastrarContratoFrame.setResizable(false);
+        cadastrarContratoFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        this.getDesktopPane().add(cadastrarContratoFrame, 0);
         this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
@@ -184,10 +185,10 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
         int option = JOptionPane.showConfirmDialog(this, "Você realmente deseja deletar este cliente?", "Deletar Cliente", JOptionPane.YES_NO_OPTION);
         if (option == 0) {
             int indexRow = jTableCliente.getSelectedRow();
-            Object[] objects = clienteTableModel.getRow(indexRow);
-            boolean isDeleted = clienteController.deletar((Serializable) objects[0]);
+            Object[] objects = contratoTableModel.getRow(indexRow);
+            boolean isDeleted = contratoController.deletar((Serializable) objects[0]);
             if (isDeleted) {
-                atualizarTabelaCliente();
+                atualizarTabelaContrato();
                 JOptionPane.showMessageDialog(this, "O cliente foi deletado com sucesso.", "Deletar Cliente", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "O cliente não foi possível deletar esse cliente.", "Deletar Cliente", JOptionPane.ERROR_MESSAGE);
@@ -196,17 +197,17 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
     }//GEN-LAST:event_jButtonDeletarActionPerformed
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
-        int indexRow = jTableCliente.getSelectedRow();
-        Object[] objects = clienteTableModel.getRow(indexRow);
-        Cliente cliente = clienteController.ler((Serializable) objects[0]);
-        atualizarClienteFrame = new AtualizarClienteFrame(cliente);
-        atualizarClienteFrame.setClienteFrameListener(this);
-        atualizarClienteFrame.setVisible(true);
-        atualizarClienteFrame.setClosable(true);
-        atualizarClienteFrame.setResizable(false);
-        atualizarClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        this.getDesktopPane().add(atualizarClienteFrame, 0);
-        this.getDesktopPane().repaint();
+//        int indexRow = jTableCliente.getSelectedRow();
+//        Object[] objects = contratoTableModel.getRow(indexRow);
+//        Cliente cliente = contratoController.ler((Serializable) objects[0]);
+//        atualizarClienteFrame = new AtualizarClienteFrame(cliente);
+//        atualizarClienteFrame.setClienteFrameListener(this);
+//        atualizarClienteFrame.setVisible(true);
+//        atualizarClienteFrame.setClosable(true);
+//        atualizarClienteFrame.setResizable(false);
+//        atualizarClienteFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+//        this.getDesktopPane().add(atualizarClienteFrame, 0);
+//        this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
     /**
@@ -255,15 +256,16 @@ public class ClienteControleFrame extends javax.swing.JInternalFrame implements 
 
     @Override
     public void atualizarClienteControleFrame() {
-        atualizarTabelaCliente();
+        atualizarTabelaContrato();
     }
 
-    private void atualizarTabelaCliente() {
-        clienteTableModel.removeAll();
-        List<Cliente> clientes = clienteController.listar();
-        clientes.forEach((cliente) -> {
-            clienteTableModel.addRow(cliente);
+    private void atualizarTabelaContrato() {
+        contratoTableModel.removeAll();
+        List<Contrato> contratos = contratoController.listar();
+        contratos.forEach((contrato) -> {
+            contratoTableModel.addRow(contrato);
         });
+
     }
 
 }

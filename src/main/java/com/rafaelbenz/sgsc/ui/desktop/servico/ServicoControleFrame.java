@@ -8,15 +8,19 @@ package com.rafaelbenz.sgsc.ui.desktop.servico;
 import com.rafaelbenz.sgsc.controller.rest.ServicoController;
 import com.rafaelbenz.sgsc.modelo.Servico;
 import java.util.List;
+import javax.swing.JDialog;
 
 /**
  *
  * @author Rafael Benzaquem Neto
  */
-public class ServicoControleFrame extends javax.swing.JInternalFrame {
+public class ServicoControleFrame extends javax.swing.JInternalFrame implements ServicoControleFrameListener {
 
     ServicoController servicoController = new ServicoController();
     ServicoTableModel tableModelServicos = new ServicoTableModel();
+    
+    CadastrarServicoFrame cadastrarServicoFrame = new CadastrarServicoFrame();
+    
     /**
      * Creates new form ServicoControleFrame
      */
@@ -145,7 +149,14 @@ public class ServicoControleFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        
+        cadastrarServicoFrame = new CadastrarServicoFrame();
+        cadastrarServicoFrame.setServicoControleFrameListener(this);
+        cadastrarServicoFrame.setVisible(true);
+        cadastrarServicoFrame.setClosable(true);
+        cadastrarServicoFrame.setResizable(false);
+        cadastrarServicoFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        this.getDesktopPane().add(cadastrarServicoFrame, 0);
+        this.getDesktopPane().repaint();
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
@@ -178,4 +189,9 @@ public class ServicoControleFrame extends javax.swing.JInternalFrame {
         servicos.forEach((servico) -> {
             tableModelServicos.addRow(servico);
         });}
+
+    @Override
+    public void atualizarServicoControleFrame() {
+        atualizarTabelaServicos();
+    }
 }

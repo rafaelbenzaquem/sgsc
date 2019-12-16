@@ -5,13 +5,11 @@
  */
 package com.rafaelbenz.sgsc.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
  *
- * @author adm_rafaelneto
+ * @author Rafael Benzaquem Neto
  */
 public class Categoria {
     private Integer id;
@@ -70,6 +68,11 @@ public class Categoria {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
  
     
